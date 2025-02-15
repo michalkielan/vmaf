@@ -347,9 +347,22 @@ if is_cuda_enabled
 
     message('ptx_arrays = @0@'.format(ptx_arrays))
 
+
+    fixed_ptx_arrays = []
+    foreach ptx_array : ptx_arrays
+      t = custom_target('fix_ptx_array_@0@'.format(ptx_array),
+        build_by_default: true,
+        output : ['@PLAINNAME@.fixed.c'],
+        input : ptx_array,
+        command : [find_program('fix_ptx_array.sh'), '@INPUT@', '@OUTPUT@'],
+      )
+      fixed_ptx_arrays += t
+    endforeach
+    message('fixed_ptx_arrays = @0@'.format(fixed_ptx_arrays))
+
     cuda_static_lib = static_library(
         'cuda_common_vmaf_lib',
-        [cuda_sources, ptx_arrays,],
+        [cuda_sources, fixed_ptx_arrays,],
         dependencies: [cuda_drv_api_dependency],
         include_directories : [
             libvmaf_include,
