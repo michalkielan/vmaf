@@ -1,3 +1,5 @@
+Goal of this fork is to make sure the CUDA is working.
+
 # VMAF - Video Multi-Method Assessment Fusion
 
 [![Build Status](https://app.travis-ci.com/Netflix/vmaf.svg?token=KLMprpotiqp3mZnrjtA6&branch=master)](https://app.travis-ci.com/Netflix/vmaf)
